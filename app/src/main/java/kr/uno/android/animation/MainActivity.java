@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.OvershootInterpolator;
@@ -57,14 +56,9 @@ public class MainActivity extends ActionBarActivity {
 
             // 열기, 닫기
             case R.id.fl_toggle:
-                if (isAnimate) return;
-
-                isAnimate = true;
                 if (mIvCloseBarTop.getVisibility() == View.GONE) {
                     show();
-                }
-
-                else {
+                } else {
                     gone();
                 }
                 break;
@@ -78,12 +72,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void show() {
-        Log.i("uno", "show");
+        if (isAnimate) return;
+        isAnimate = true;
         dismissOpenBar();
     }
 
     public void dismissOpenBar() {
-        Log.i("uno", "dismissOpenBar");
         mIvOpenBar.animate()
                 .translationX(-mIvOpenBar.getLayoutParams().height)
                 .translationY(-mIvOpenBar.getLayoutParams().height)
@@ -98,7 +92,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void expand() {
-        Log.i("uno", "expand");
         ValueAnimator animator = ValueAnimator.ofInt(0, mTargetExpandWidth);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -118,7 +111,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showCloseBar() {
-        Log.i("uno", "showCloseBar");
         mIvCloseBarTop.setTranslationX(mIvCloseBarTop.getLayoutParams().height);
         mIvCloseBarTop.setTranslationY(-mIvCloseBarTop.getLayoutParams().height);
         mIvCloseBarTop.setVisibility(View.VISIBLE);
@@ -161,13 +153,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void gone() {
-        Log.i("uno", "gone");
+        if (isAnimate) return;
+        isAnimate = true;
         dismissCloseBar();
         dismissEditText();
     }
 
     public void dismissCloseBar() {
-        Log.i("uno", "dismissCloseBar");
         mIvCloseBarTop.animate()
                 .alpha(0f)
                 .translationX(mIvCloseBarTop.getLayoutParams().height)
@@ -204,7 +196,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void close() {
-        Log.i("uno", "close");
         ValueAnimator animator = ValueAnimator.ofInt(mTargetExpandWidth, 0);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -223,7 +214,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showOpenBar() {
-        Log.i("uno", "showOpenBar");
         mIvOpenBar.animate()
                 .translationX(0)
                 .translationY(0)
