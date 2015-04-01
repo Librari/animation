@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="color_default_stroke">#FFFFFFFF</color>
+    <color name="color_default_solid">#FFE62878</color>
+
+</resources>
