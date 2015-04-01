@@ -71,6 +71,11 @@ public class MainActivity extends ActionBarActivity {
         else super.onBackPressed();
     }
 
+    /**
+     * 1. 돋보기 손잡이 제거
+     * 2. 텍스트창 펼침
+     * 3. 닫기버튼 생성
+     */
     public void show() {
         if (isAnimate) return;
         isAnimate = true;
@@ -152,6 +157,11 @@ public class MainActivity extends ActionBarActivity {
                 .start();
     }
 
+    /**
+     * 1. 닫기버튼 제거
+     * 2. 텍스트창 접음
+     * 3. 돋보기 손잡이 생성
+     */
     public void gone() {
         if (isAnimate) return;
         isAnimate = true;
