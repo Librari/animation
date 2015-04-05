@@ -1,13 +1,16 @@
-package kr.uno.android.animation;
+package kr.uno.android.animation.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.OvershootInterpolator;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,10 +19,11 @@ import android.widget.LinearLayout;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import kr.uno.android.animation.R;
 import kr.uno.android.animation.util.DisplayUtil;
 
 
-public class MainActivity extends ActionBarActivity {
+public class SearchActivity extends ActionBarActivity {
 
     @InjectView(R.id.ll_search) LinearLayout mLlSearch;
     @InjectView(R.id.et_search) EditText mEtSearch;
@@ -36,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_search);
 
         initView();
     }
@@ -46,7 +50,7 @@ public class MainActivity extends ActionBarActivity {
 
         int ovalWidth = (int) getResources().getDimension(R.dimen.oval_width);
         int padding = mLlSearch.getPaddingLeft() * 2;
-        mTargetExpandWidth = DisplayUtil.getWidth(MainActivity.this) - ovalWidth - padding;
+        mTargetExpandWidth = DisplayUtil.getWidth(SearchActivity.this) - ovalWidth - padding;
     }
 
     @OnClick({ R.id.fl_toggle })
@@ -107,6 +111,12 @@ public class MainActivity extends ActionBarActivity {
                 if (mEtSearch.getLayoutParams().width == mTargetExpandWidth) {
                     showCloseBar();
                     showEditText();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showKeyboard();
+                        }
+                    }, 300);
                 }
             }
         });
@@ -232,8 +242,19 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         isAnimate = false;
+                        hideKeyboard();
                     }
                 })
                 .start();
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mEtSearch.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    public void showKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(mEtSearch, InputMethodManager.SHOW_IMPLICIT);
     }
 }

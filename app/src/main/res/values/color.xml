@@ -2,7 +2,12 @@
 
 <resources>
 
-    <color name="color_default_stroke">#FFFFFFFF</color>
-    <color name="color_default_solid">#FFE62878</color>
+    <!-- main default drawable -->
+    <color name="color_default_btn_n">#ff353535</color>
+    <color name="color_default_btn_t">#ff000000</color>
+
+    <!-- search -->
+    <color name="color_default_stroke">#ffffffff</color>
+    <color name="color_default_solid">#ff000000</color>
 
 </resources>

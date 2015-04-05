@@ -3,90 +3,30 @@
     android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_default_solid"
     android:clipToPadding="false"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:padding="50dp">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/bt_search"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:text="SEARCH"
+        android:textSize="13dp"
+        android:textColor="#fff"
+        android:background="@drawable/selector_default_btn"/>
 
-        <ImageView
-            android:id="@+id/iv_open_bar"
-            android:layout_width="@dimen/stroke_width"
-            android:layout_height="@dimen/bar_height"
-            android:layout_gravity="right|bottom"
-            android:layout_marginRight="25dp"
-            android:layout_marginBottom="15dp"
-            android:rotation="-45"
-            android:src="@color/color_default_stroke" />
-
-        <LinearLayout
-            android:id="@+id/ll_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:padding="20dp">
-
-            <ImageView
-                android:layout_width="@dimen/oval_width_half"
-                android:layout_height="@dimen/oval_width"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_oval_left" />
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_rectangle">
-
-                <EditText
-                    android:id="@+id/et_search"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/oval_width"
-                    android:singleLine="true"
-                    android:textCursorDrawable="@color/color_default_stroke"
-                    android:paddingRight="@dimen/oval_width_half"
-                    android:background="@null"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/color_default_stroke" />
-            </FrameLayout>
-
-            <ImageView
-                android:layout_width="@dimen/oval_width_half"
-                android:layout_height="@dimen/oval_width"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_oval_right" />
-        </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/fl_toggle"
-            android:layout_width="@dimen/oval_width"
-            android:layout_height="@dimen/oval_width"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="20dp">
-
-            <ImageView
-                android:id="@+id/iv_close_bar_top"
-                android:layout_width="@dimen/stroke_width"
-                android:layout_height="@dimen/stroke_height"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:rotation="45"
-                android:src="@color/color_default_stroke" />
-
-            <ImageView
-                android:id="@+id/iv_close_bar_bottom"
-                android:layout_width="@dimen/stroke_width"
-                android:layout_height="@dimen/stroke_height"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:rotation="-45"
-                android:src="@color/color_default_stroke" />
-        </FrameLayout>
-    </FrameLayout>
+    <Button
+        android:id="@+id/bt_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_default_btn"
+        android:layout_below="@id/bt_search"
+        android:text="MENU"
+        android:layout_marginTop="10dp"
+        android:textSize="13dp"
+        android:textColor="#fff"/>
 
 </RelativeLayout>
