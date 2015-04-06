@@ -9,7 +9,6 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -61,9 +60,9 @@ public class MenuActivity extends ActionBarActivity {
             case R.id.rl_menu_open: show(); break;
             case R.id.rl_menu: dismiss(); break;
 
-            case R.id.rl_menu_home: Toast.makeText(this, "home", Toast.LENGTH_SHORT).show(); break;
-            case R.id.rl_menu_ideas: Toast.makeText(this, "ideas", Toast.LENGTH_SHORT).show(); break;
-            case R.id.rl_menu_contact: Toast.makeText(this, "contact us", Toast.LENGTH_SHORT).show(); break;
+            case R.id.rl_menu_home:
+            case R.id.rl_menu_ideas:
+            case R.id.rl_menu_contact: dismiss(); break;
         }
     }
 
