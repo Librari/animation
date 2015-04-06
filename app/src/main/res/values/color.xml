@@ -10,4 +10,8 @@
     <color name="color_default_stroke">#ffffffff</color>
     <color name="color_default_solid">#ff000000</color>
 
+    <!-- menu -->
+    <color name="color_menu_font">#ff000000</color>
+    <color name="color_menu_bg">#f0ffffff</color>
+
 </resources>

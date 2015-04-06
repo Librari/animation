@@ -38,9 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="OPEN"
+            android:text="MENU"
             android:textSize="13dp"
-            android:textColor="#fff" />
+            android:textStyle="bold"
+            android:textColor="@color/color_menu_font" />
 
         <TextView
             android:id="@+id/tv_menu_done"
@@ -49,7 +50,8 @@
             android:layout_centerInParent="true"
             android:text="DONE"
             android:textSize="13dp"
-            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textColor="@color/color_menu_font"
             android:alpha="0" />
     </RelativeLayout>
 
