@@ -23,7 +23,7 @@ import kr.uno.android.animation.util.DisplayUtil;
 
 public class MenuActivity extends ActionBarActivity {
 
-    public static final long DURATION = 300;
+    public static final long DURATION = 200;
 
     @InjectView(R.id.rl_menu_open) RelativeLayout mRlMenuOpen;
     @InjectView(R.id.iv_menu_bg) ImageView mIvMenuBg;
