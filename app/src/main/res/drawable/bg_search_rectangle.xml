@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:left="@dimen/stroke_width_reverse"
-        android:right="@dimen/stroke_width_reverse">
+    <item>
         <shape android:shape="rectangle">
             <stroke
                 android:width="@dimen/stroke_width"
                 android:color="@color/color_default_stroke" />
 
             <solid android:color="@color/color_default_solid" />
+            <corners android:radius="100dp" />
         </shape>
     </item>
 

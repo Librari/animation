@@ -15,44 +15,27 @@
         android:rotation="-45"
         android:src="@color/color_default_stroke" />
 
-    <LinearLayout
-        android:id="@+id/ll_search"
+    <RelativeLayout
+        android:id="@+id/rl_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:layout_margin="20dp"
+        android:background="@drawable/bg_search_rectangle">
 
-        <ImageView
-            android:layout_width="@dimen/oval_width_half"
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="@dimen/oval_width"
             android:layout_height="@dimen/oval_width"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_search_oval_left" />
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_search_rectangle">
-
-            <EditText
-                android:id="@+id/et_search"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/oval_width"
-                android:singleLine="true"
-                android:textCursorDrawable="@color/color_default_stroke"
-                android:paddingRight="@dimen/oval_width_half"
-                android:background="@null"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:textColor="@color/color_default_stroke" />
-        </FrameLayout>
-
-        <ImageView
-            android:layout_width="@dimen/oval_width_half"
-            android:layout_height="@dimen/oval_width"
-            android:scaleType="fitXY"
-            android:src="@drawable/bg_search_oval_right" />
-    </LinearLayout>
+            android:singleLine="true"
+            android:textCursorDrawable="@color/color_default_stroke"
+            android:paddingLeft="@dimen/oval_width_half"
+            android:paddingRight="@dimen/oval_width"
+            android:background="@null"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:textColor="@color/color_default_stroke" />
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/fl_toggle"

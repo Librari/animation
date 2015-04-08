@@ -2,11 +2,7 @@
 
     <dimen name="oval_width">50dp</dimen>
     <dimen name="oval_width_half">25dp</dimen>
-    <dimen name="oval_width_half_reverse">-25dp</dimen>
-
     <dimen name="stroke_width">5dp</dimen>
-    <dimen name="stroke_width_reverse">-6dp</dimen>
-
     <dimen name="stroke_height">20dp</dimen>
     <dimen name="bar_height">25dp</dimen>
 

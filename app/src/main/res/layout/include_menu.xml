@@ -3,6 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/iv_menu_bg"
+        android:layout_width="50dp"
+        android:layout_margin="20dp"
+        android:layout_height="50dp"
+        android:src="@drawable/bg_menu_oval"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitXY" />
+
+    <RelativeLayout
+        android:id="@+id/rl_menu_open"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true">
+
+        <TextView
+            android:id="@+id/tv_menu_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="MENU"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:textColor="@color/color_menu_font" />
+
+        <TextView
+            android:id="@+id/tv_menu_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="DONE"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:textColor="@color/color_menu_font"
+            android:alpha="0" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_menu"
         android:layout_width="match_parent"

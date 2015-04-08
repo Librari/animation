@@ -70,8 +70,6 @@ public class MenuActivity extends ActionBarActivity {
         mRlMenu.setVisibility(View.VISIBLE);
         mTvMenuOpen.animate().alpha(0f).setDuration(DURATION).start();
         mTvMenuDone.animate().alpha(1f).setDuration(DURATION).start();
-//        mTvMenuOpen.animate().rotation(360f).alpha(0f).setDuration(DURATION).start();
-//        mTvMenuDone.animate().rotation(360f).alpha(1f).setDuration(DURATION).start();
         mIvMenuBg.animate().scaleX(mScale).scaleY(mScale).setDuration(DURATION).start();
 
         for (int i = 0; i < mListRlMenu.size(); i++) {
@@ -96,8 +94,6 @@ public class MenuActivity extends ActionBarActivity {
                 }).start();
         mTvMenuOpen.animate().alpha(1f).setDuration(DURATION).start();
         mTvMenuDone.animate().alpha(0f).setDuration(DURATION).start();
-//        mTvMenuOpen.animate().rotation(0f).alpha(1f).setDuration(DURATION).start();
-//        mTvMenuDone.animate().rotation(0f).alpha(0f).setDuration(DURATION).start();
         mIvMenuBg.animate().scaleX(1f).scaleY(1f).setDuration(DURATION).start();
     }
 
