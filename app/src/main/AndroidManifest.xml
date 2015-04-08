@@ -28,6 +28,10 @@
         <activity
             android:name=".ui.MenuActivity"
             android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".ui.PagerActivity"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         ButterKnife.inject(this);
     }
 
-    @OnClick({ R.id.bt_search, R.id.bt_menu })
+    @OnClick({ R.id.bt_search, R.id.bt_menu, R.id.bt_pager })
     public void onClick(View v) {
 
         Intent intent = null;
@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity {
         switch (v.getId()) {
             case R.id.bt_search: intent = new Intent(this, SearchActivity.class); break;            // 검색
             case R.id.bt_menu: intent = new Intent(this, MenuActivity.class); break;                // 메뉴
+            case R.id.bt_pager: intent = new Intent(this, PagerActivity.class); break;              // 페이저
         }
 
         if (intent != null) {
