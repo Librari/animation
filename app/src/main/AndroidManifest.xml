@@ -9,6 +9,7 @@
     <application
         android:icon="@drawable/uno_mation"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
@@ -31,6 +32,8 @@
         <activity
             android:name=".ui.RippleActivity"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.PullActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img_blur" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_pull"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_bg" />
+
+</RelativeLayout>

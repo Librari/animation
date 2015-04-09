@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/tv_pull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sample"
+        android:padding="15dp"
+        android:textSize="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.33dp"
+        android:background="#aaa"
+        android:layout_below="@id/tv_pull" />
+</RelativeLayout>
