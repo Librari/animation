@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,8 +30,6 @@ public class MenuActivity extends ActionBarActivity {
     @InjectView(R.id.tv_menu_done) TextView mTvMenuDone;
     @InjectViews({ R.id.rl_menu_home, R.id.rl_menu_ideas, R.id.rl_menu_contact }) List<RelativeLayout> mListRlMenu;
 
-    @InjectView(R.id.webview) WebView mWebview;
-
     private float mScale;
 
     @Override
@@ -47,8 +44,6 @@ public class MenuActivity extends ActionBarActivity {
     public void initValue() {
         int height = DisplayUtil.getHeight(this) * 3;
         mScale = height / DisplayUtil.getPixelFromDp(this, 50);
-        mWebview.getSettings().setJavaScriptEnabled(true);
-        mWebview.loadUrl("https://www.google.co.kr/search?q=UI%2FUX+%EB%94%94%EC%9E%90%EC%9D%B8");
     }
 
     @OnClick({

@@ -7,7 +7,7 @@
 
     <!-- search -->
     <color name="color_default_stroke">#ffffffff</color>
-    <color name="color_default_solid">#ff000000</color>
+    <color name="color_default_solid">#ffe62878</color>
 
     <!-- menu -->
     <color name="color_menu_font">#ffffffff</color>

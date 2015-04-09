@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/color_default_solid"
     android:clipToPadding="false"
-    android:gravity="center"
     android:focusable="true"
+    android:gravity="center"
     android:focusableInTouchMode="true">
 
     <include layout="@layout/include_search" />
-
 </RelativeLayout>

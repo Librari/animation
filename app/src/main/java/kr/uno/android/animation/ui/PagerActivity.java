@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +19,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.util.DisplayUtil;
-
-import static android.view.ViewGroup.LayoutParams;
 
 
 public class PagerActivity extends ActionBarActivity {
@@ -52,11 +52,13 @@ public class PagerActivity extends ActionBarActivity {
             public void transformPage(View view, float position) {
                 float normalizedposition = Math.abs(Math.abs(position) - 1);
                 int padding = (int) (mDisplayWidth - (mDisplayWidth * normalizedposition));
+
+                RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.rl_content);
                 if (position == 0.0f || position == 1.0f) {
-                    view.setPadding(0, 0, 0, 0);
+                    rl.setPadding(0, 0, 0, 0);
                 } else {
-                    if (position < 0.0f) view.setPadding(padding, 0, -padding, 0);
-                    if (position > 0.0f) view.setPadding(-padding, 0, padding, 0);
+                    if (position < 0.0f) rl.setPadding(padding, 0, -padding, 0);
+                    if (position > 0.0f) rl.setPadding(-padding, 0, padding, 0);
                 }
                 view.requestLayout();
             }
@@ -91,12 +93,20 @@ public class PagerActivity extends ActionBarActivity {
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ImageView iv = new ImageView(mContext);
-            iv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            iv.setImageResource(getItem(position));
-            container.addView(iv);
-            return iv;
+
+            // view
+            View view = mInflater.inflate(R.layout.row_pager, null);
+            ImageView ivPager = (ImageView) view.findViewById(R.id.iv_pager);
+            TextView tvPosition = (TextView) view.findViewById(R.id.tv_position);
+            TextView tvRes = (TextView) view.findViewById(R.id.tv_res);
+
+            // value
+            ivPager.setImageResource(getItem(position));
+            tvPosition.setText("position: " + position);
+            tvRes.setText("resource: " + getItem(position));
+
+            container.addView(view);
+            return view;
         }
 
         @Override

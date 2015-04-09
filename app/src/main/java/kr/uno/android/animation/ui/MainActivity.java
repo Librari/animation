@@ -18,11 +18,9 @@ import kr.uno.android.animation.R;
 
 public class MainActivity extends ActionBarActivity {
 
-    public static final long DURATION = 200;
-
     @InjectView(R.id.rl_menu) RelativeLayout mRlMenu;
     @InjectView(R.id.iv_bg) ImageView mIvBg;
-    @InjectViews({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager }) List<RelativeLayout> mListRlMenu;
+    @InjectViews({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager, R.id.rl_menu_ripple }) List<RelativeLayout> mListRlMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,25 +32,28 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void initView() {
+
         mRlMenu.setVisibility(View.VISIBLE);
         mIvBg.setVisibility(View.VISIBLE);
-        mRlMenu.setAlpha(0f);
         mIvBg.setAlpha(0f);
-        mRlMenu.animate().alpha(1f).setDuration(DURATION).start();
-        mIvBg.animate().alpha(1f).setDuration(DURATION).start();
 
+        mRlMenu.animate().alpha(1f).setDuration(1000).start();
+        mIvBg.animate().alpha(1f).setDuration(1000).start();
+
+        long startDelay = 500;
+        long duration = 200;
         for (int i = 0; i < mListRlMenu.size(); i++) {
             final RelativeLayout rlMenu = mListRlMenu.get(i);
             rlMenu.setAlpha(0f);
             rlMenu.animate()
                     .alpha(1f)
-                    .setStartDelay(DURATION * (i + 2))
-                    .setDuration(DURATION)
+                    .setStartDelay(startDelay + (duration * i))
+                    .setDuration(duration)
                     .start();
         }
     }
 
-    @OnClick({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager })
+    @OnClick({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager, R.id.rl_menu_ripple })
     public void onClick(View v) {
 
         Intent intent = null;
@@ -61,6 +62,7 @@ public class MainActivity extends ActionBarActivity {
             case R.id.rl_menu_search: intent = new Intent(this, SearchActivity.class); break;       // 검색
             case R.id.rl_menu_menu: intent = new Intent(this, MenuActivity.class); break;           // 메뉴
             case R.id.rl_menu_pager: intent = new Intent(this, PagerActivity.class); break;         // 페이저
+            case R.id.rl_menu_ripple: intent = new Intent(this, RippleActivity.class); break;       // 리플 이펙트
         }
 
         if (intent != null) {
