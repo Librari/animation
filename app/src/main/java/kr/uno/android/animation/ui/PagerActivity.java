@@ -37,7 +37,7 @@ public class PagerActivity extends ActionBarActivity {
     }
 
     public void initValue() {
-        mDisplayWidth = DisplayUtil.getWidth(this);
+        mDisplayWidth = DisplayUtil.getWidth(this) / 2;
 
         List<Integer> itemList = new ArrayList<>();
         itemList.add(R.drawable.sample1);
@@ -55,8 +55,8 @@ public class PagerActivity extends ActionBarActivity {
                 if (position == 0.0f || position == 1.0f) {
                     view.setPadding(0, 0, 0, 0);
                 } else {
-                    if (position < 0.0f) view.setPadding(0, 0, -padding, 0);
-                    if (position > 0.0f) view.setPadding(-padding, 0, 0, 0);
+                    if (position < 0.0f) view.setPadding(padding, 0, -padding, 0);
+                    if (position > 0.0f) view.setPadding(-padding, 0, padding, 0);
                 }
                 view.requestLayout();
             }

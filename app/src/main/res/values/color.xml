@@ -3,8 +3,7 @@
 <resources>
 
     <!-- main default drawable -->
-    <color name="color_default_btn_n">#ff353535</color>
-    <color name="color_default_btn_t">#ff000000</color>
+    <color name="color_bg">#90000000</color>
 
     <!-- search -->
     <color name="color_default_stroke">#ffffffff</color>
