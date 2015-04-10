@@ -52,8 +52,10 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
     public void setHeaderHeightOffset(int offset) {
         final View view = mHeaderView.findViewById(R.id.rl_header);
-        int height = view.getLayoutParams().height + offset;
 
+        // height 조절
+        float ratio = (float) view.getLayoutParams().height / mHeaderHeightMax;
+        int height = (int) (view.getLayoutParams().height + (offset - (offset * ratio)));
         if (view != null && height > mHeadertHeightDefaul) {
             height = height > mHeadertHeightDefaul * 2 ? mHeadertHeightDefaul * 2 : height;
             view.getLayoutParams().height = height;
