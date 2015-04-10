@@ -12,10 +12,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.adapter.PullAdapter;
+import kr.uno.android.animation.listener.RecyclerListenerAdapter;
+import kr.uno.android.animation.ui.widget.BaseRecyclerView;
 
 public class PullActivity extends ActionBarActivity {
 
-    @InjectView(R.id.recycler_pull) RecyclerView mRecyclerPull;
+    @InjectView(R.id.recycler_pull) BaseRecyclerView mRecyclerPull;
 
     private RecyclerView.LayoutManager mLayoutManager;
     private PullAdapter mAdapterPull;
@@ -47,10 +49,25 @@ public class PullActivity extends ActionBarActivity {
         mRecyclerPull.setAdapter(mAdapterPull);
     }
 
-    private void initControl() { }
+    private void initControl() {
+
+        mRecyclerPull.setOnRecyclerListener(new RecyclerListenerAdapter() {
+            @Override
+            public boolean isOffsetEnable() {
+                return mAdapterPull.isExpanded();
+            }
+
+            @Override
+            public void onScrollOffset(int offset, boolean isMove) {
+                super.onScrollOffset(offset, isMove);
+                if (isMove) mAdapterPull.setHeaderHeightOffset(offset);
+                else mAdapterPull.foldingHeader();
+            }
+        });
+    }
 
     private void initValue() {
-        mAdapterPull.setHeader(R.drawable.sample1);
+        mAdapterPull.setHeader(R.drawable.sample2);
         mAdapterPull.setItemList(mItemList);
     }
 

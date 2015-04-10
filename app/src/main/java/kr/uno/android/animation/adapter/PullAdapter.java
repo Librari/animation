@@ -1,7 +1,9 @@
 package kr.uno.android.animation.adapter;
 
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,10 +25,15 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
     private int mHeaderResId;
     private List<String> mItemList;
-
+    private View mHeaderView;
+    private int mHeadertHeightDefaul;
+    private int mHeaderHeightMax;
+    private boolean isExpanded;
 
     public PullAdapter(Context context) {
         super(context);
+        mHeaderHeightMax = DisplayUtil.getHeight(getContext());
+        mHeadertHeightDefaul = mHeaderHeightMax / 2;
     }
 
     @Override
@@ -41,6 +48,43 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
     public void setHeader(int resId) {
         mHeaderResId = resId;
+    }
+
+    public void setHeaderHeightOffset(int offset) {
+        final View view = mHeaderView.findViewById(R.id.rl_header);
+        int height = view.getLayoutParams().height + offset;
+
+        if (view != null && height > mHeadertHeightDefaul) {
+            height = height > mHeadertHeightDefaul * 2 ? mHeadertHeightDefaul * 2 : height;
+            view.getLayoutParams().height = height;
+            view.requestLayout();
+            isExpanded = true;
+        } else {
+            isExpanded = false;
+        }
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void foldingHeader() {
+        final View view = mHeaderView.findViewById(R.id.rl_header);
+        if (view != null) {
+            ValueAnimator animator = ValueAnimator.ofInt(view.getLayoutParams().height, mHeadertHeightDefaul);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    view.getLayoutParams().height = (int) animation.getAnimatedValue();
+                    view.requestLayout();
+                }
+            });
+            animator.setStartDelay(0);
+            animator.setDuration(200);
+            animator.start();
+        }
+
+        isExpanded = false;
     }
 
     public void setItemList(List<String> itemList) {
@@ -71,13 +115,17 @@ public class PullAdapter extends BaseRecyclerAdapter {
         @InjectView(R.id.rl_header) RelativeLayout mRlHeader;
         @InjectView(R.id.iv_header) ImageView mIvHeader;
 
+        private int mPadding;
+
         public HeaderViewHolder(Context mContext, ViewGroup parent, int resId) {
             super(mContext, parent, resId);
+            mHeaderView = itemView;
+            mRlHeader.getLayoutParams().height = mHeadertHeightDefaul;
+            mPadding = mRlHeader.getPaddingLeft();
         }
 
         @Override
         public void onBindView(Integer item, int position) {
-            mRlHeader.getLayoutParams().height = DisplayUtil.getWidth(getContext()) / 2;
             mIvHeader.setImageResource(item);
         }
     }

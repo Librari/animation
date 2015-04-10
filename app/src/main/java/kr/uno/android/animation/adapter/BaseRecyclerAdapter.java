@@ -28,12 +28,12 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewH
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
-        holder.onBindView(getRows(position) != null ? getRows(position).item : null, position);
+        holder.onBindView(getRow(position) != null ? getRow(position).item : null, position);
     }
 
     @Override
     public int getItemViewType(int position) {
-        return getRows(position) != null ? getRows(position).type : 0;
+        return getRow(position) != null ? getRow(position).type : 0;
     }
 
     @Override
@@ -54,7 +54,7 @@ public abstract class BaseRecyclerAdapter extends RecyclerView.Adapter<BaseViewH
         return mRows != null ? mRows.size() : 0;
     }
 
-    public Row getRows(int position) {
+    public Row getRow(int position) {
         return getItemCount() > position ? mRows.get(position) : null;
     }
 

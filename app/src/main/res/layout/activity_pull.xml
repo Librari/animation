@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/img_blur" />
 
-    <android.support.v7.widget.RecyclerView
+    <kr.uno.android.animation.ui.widget.BaseRecyclerView
         android:id="@+id/recycler_pull"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
