@@ -47,11 +47,12 @@ public class BaseRecyclerView extends RecyclerView {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
 
-                    case MotionEvent.ACTION_DOWN: rawY = event.getRawY(); break;
+                    case MotionEvent.ACTION_DOWN: rawY = 0; break;
                     case MotionEvent.ACTION_UP: listener.onScrollOffset(0, false); break;
 
                     case MotionEvent.ACTION_MOVE:
                         if (isTop) {
+                            if (rawY == 0) rawY = event.getRawY();
                             listener.onScrollOffset((int) (event.getRawY() - rawY), true);
                             rawY = event.getRawY();
                             return listener.isOffsetEnable();

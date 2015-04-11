@@ -26,14 +26,14 @@ public class PullAdapter extends BaseRecyclerAdapter {
     private int mHeaderResId;
     private List<String> mItemList;
     private View mHeaderView;
-    private int mHeadertHeightDefaul;
+    private int mHeaderHeightDefault;
     private int mHeaderHeightMax;
     private boolean isExpanded;
 
     public PullAdapter(Context context) {
         super(context);
-        mHeaderHeightMax = DisplayUtil.getHeight(getContext());
-        mHeadertHeightDefaul = mHeaderHeightMax / 2;
+        mHeaderHeightMax = DisplayUtil.getWidth(getContext());
+        mHeaderHeightDefault = mHeaderHeightMax / 2;
     }
 
     @Override
@@ -51,15 +51,17 @@ public class PullAdapter extends BaseRecyclerAdapter {
     }
 
     public void setHeaderHeightOffset(int offset) {
-        final View view = mHeaderView.findViewById(R.id.rl_header);
+        final View content = mHeaderView.findViewById(R.id.rl_header);
+        final View blur = mHeaderView.findViewById(R.id.rl_blur);
 
         // height 조절
-        float ratio = (float) view.getLayoutParams().height / mHeaderHeightMax;
-        int height = (int) (view.getLayoutParams().height + (offset - (offset * ratio)));
-        if (view != null && height > mHeadertHeightDefaul) {
-            height = height > mHeadertHeightDefaul * 2 ? mHeadertHeightDefaul * 2 : height;
-            view.getLayoutParams().height = height;
-            view.requestLayout();
+        float ratio = (float) content.getLayoutParams().height / mHeaderHeightMax;
+        int height = (int) (content.getLayoutParams().height + (offset - (offset * ratio)));
+        if (content != null && height > mHeaderHeightDefault) {
+            height = height > mHeaderHeightDefault * 2 ? mHeaderHeightDefault * 2 : height;
+            content.getLayoutParams().height = height;
+            blur.setAlpha(1f - ((float) (height - mHeaderHeightDefault) / (mHeaderHeightMax - height)));
+            content.requestLayout();
             isExpanded = true;
         } else {
             isExpanded = false;
@@ -71,14 +73,17 @@ public class PullAdapter extends BaseRecyclerAdapter {
     }
 
     public void foldingHeader() {
-        final View view = mHeaderView.findViewById(R.id.rl_header);
-        if (view != null) {
-            ValueAnimator animator = ValueAnimator.ofInt(view.getLayoutParams().height, mHeadertHeightDefaul);
+        final View content = mHeaderView.findViewById(R.id.rl_header);
+        final View blur = mHeaderView.findViewById(R.id.rl_blur);
+        if (content != null) {
+            ValueAnimator animator = ValueAnimator.ofInt(content.getLayoutParams().height, mHeaderHeightDefault);
             animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-                    view.getLayoutParams().height = (int) animation.getAnimatedValue();
-                    view.requestLayout();
+                    int height = (int) animation.getAnimatedValue();
+                    content.getLayoutParams().height = height;
+                    blur.setAlpha(1f - ((float) (height - mHeaderHeightDefault) / (mHeaderHeightMax - mHeaderHeightDefault)));
+                    content.requestLayout();
                 }
             });
             animator.setStartDelay(0);
@@ -116,13 +121,16 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
         @InjectView(R.id.rl_header) RelativeLayout mRlHeader;
         @InjectView(R.id.iv_header) ImageView mIvHeader;
+        @InjectView(R.id.rl_blur) RelativeLayout mRlBlur;
+        @InjectView(R.id.iv_blur) ImageView mIvBlur;
+        @InjectView(R.id.tv_blur) TextView mTvBlur;
 
         private int mPadding;
 
         public HeaderViewHolder(Context mContext, ViewGroup parent, int resId) {
             super(mContext, parent, resId);
             mHeaderView = itemView;
-            mRlHeader.getLayoutParams().height = mHeadertHeightDefaul;
+            mRlHeader.getLayoutParams().height = mHeaderHeightDefault;
             mPadding = mRlHeader.getPaddingLeft();
         }
 
