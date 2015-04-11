@@ -17,6 +17,7 @@ import kr.uno.android.animation.R;
 import kr.uno.android.animation.item.BaseViewHolder;
 import kr.uno.android.animation.item.Row;
 import kr.uno.android.animation.util.DisplayUtil;
+import kr.uno.android.animation.util.ImageLoader;
 
 public class PullAdapter extends BaseRecyclerAdapter {
 
@@ -125,18 +126,16 @@ public class PullAdapter extends BaseRecyclerAdapter {
         @InjectView(R.id.iv_blur) ImageView mIvBlur;
         @InjectView(R.id.tv_blur) TextView mTvBlur;
 
-        private int mPadding;
-
         public HeaderViewHolder(Context mContext, ViewGroup parent, int resId) {
             super(mContext, parent, resId);
             mHeaderView = itemView;
             mRlHeader.getLayoutParams().height = mHeaderHeightDefault;
-            mPadding = mRlHeader.getPaddingLeft();
         }
 
         @Override
         public void onBindView(Integer item, int position) {
-            mIvHeader.setImageResource(item);
+            ImageLoader.getInstance(getContext()).load(mIvHeader, item);
+            ImageLoader.getInstance(getContext()).blur(mIvBlur, item);
         }
     }
 

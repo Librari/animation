@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:gravity="center">
 
     <RelativeLayout
         android:id="@+id/rl_content"
@@ -17,24 +18,40 @@
             android:scaleType="centerCrop" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_position"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:padding="15dp"
-        android:textSize="15dp"
-        android:textColor="#fff"
-        android:background="#9000" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_res"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="15dp"
-        android:padding="15dp"
-        android:textSize="15dp"
-        android:textColor="#fff"
-        android:background="#9000" />
+        <RelativeLayout
+            android:id="@+id/rl_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <kr.uno.android.animation.ui.widget.FontTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="90dp"
+                android:textStyle="bold"
+                android:lineSpacingExtra="-30dp"
+                android:text="20\n05\n22"
+                android:visibility="invisible"
+                android:paddingBottom="80dp"/>
+        </RelativeLayout>
+
+        <kr.uno.android.animation.ui.widget.FontTextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/rl_timer"
+            android:textColor="#000"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" />
+
+    </RelativeLayout>
 </RelativeLayout>

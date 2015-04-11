@@ -25,8 +25,13 @@
                 android:id="@+id/iv_blur"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:background="@color/color_menu_bg" />
+                android:background="@color/color_bg" />
 
             <TextView
                 android:id="@+id/tv_blur"

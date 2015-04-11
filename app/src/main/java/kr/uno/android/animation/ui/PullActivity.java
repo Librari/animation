@@ -67,7 +67,7 @@ public class PullActivity extends ActionBarActivity {
     }
 
     private void initValue() {
-        mAdapterPull.setHeader(R.drawable.sample2);
+        mAdapterPull.setHeader(R.drawable.sample1);
         mAdapterPull.setItemList(mItemList);
     }
 

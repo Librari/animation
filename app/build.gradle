@@ -12,6 +12,9 @@ android {
         versionName "1.0.2"
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -25,4 +28,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.github.traex.rippleeffect:library:1.2.4'
     compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.github.bumptech.glide:glide:3.4.+'
 }
