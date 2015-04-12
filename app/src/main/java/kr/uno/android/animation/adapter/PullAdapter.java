@@ -126,8 +126,8 @@ public class PullAdapter extends BaseRecyclerAdapter {
         @InjectView(R.id.iv_blur) ImageView mIvBlur;
         @InjectView(R.id.tv_blur) TextView mTvBlur;
 
-        public HeaderViewHolder(Context mContext, ViewGroup parent, int resId) {
-            super(mContext, parent, resId);
+        public HeaderViewHolder(Context context, ViewGroup parent, int resId) {
+            super(context, parent, resId);
             mHeaderView = itemView;
             mRlHeader.getLayoutParams().height = mHeaderHeightDefault;
         }
@@ -143,8 +143,8 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
         @InjectView(R.id.tv_pull) TextView mTvPull;
 
-        public ListViewHolder(Context mContext, ViewGroup parent, int resId) {
-            super(mContext, parent, resId);
+        public ListViewHolder(Context context, ViewGroup parent, int resId) {
+            super(context, parent, resId);
         }
 
         @Override

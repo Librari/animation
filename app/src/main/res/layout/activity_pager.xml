@@ -7,54 +7,10 @@
     android:focusable="true"
     android:focusableInTouchMode="true">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
+    <kr.uno.android.animation.ui.widget.BaseRecyclerView
+        android:id="@+id/recycler_pull"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <RelativeLayout
-        android:id="@+id/rl_cover"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <kr.uno.android.animation.ui.widget.FontTextView
-            android:id="@+id/tv_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textColor="#000"
-            android:textSize="90dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:lineSpacingExtra="-30dp"
-            android:text="20\n05\n22" />
-
-        <RelativeLayout
-            android:id="@+id/rl_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/tv_timer"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/iv_icon_horizontal"
-                android:layout_width="3dp"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="#000" />
-
-            <ImageView
-                android:id="@+id/iv_icon_vertical"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:layout_centerInParent="true"
-                android:background="#000" />
-        </RelativeLayout>
-
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@color/color_bg" />
 
 </RelativeLayout>

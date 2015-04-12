@@ -26,9 +26,11 @@
             android:id="@+id/rl_timer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:paddingBottom="50dp">
 
             <kr.uno.android.animation.ui.widget.FontTextView
+                android:id="@+id/tv_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -36,22 +38,24 @@
                 android:textStyle="bold"
                 android:lineSpacingExtra="-30dp"
                 android:text="20\n05\n22"
-                android:visibility="invisible"
-                android:paddingBottom="80dp"/>
-        </RelativeLayout>
+                android:visibility="invisible" />
 
-        <kr.uno.android.animation.ui.widget.FontTextView
-            android:id="@+id/tv_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/rl_timer"
-            android:textColor="#000"
-            android:textSize="30dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            <kr.uno.android.animation.ui.widget.FontTextView
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/tv_timer"
+                android:layout_marginTop="80dp"
+                android:textColor="#000"
+                android:textSize="13dp"
+                android:maxLines="2"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:lineSpacingExtra="-3dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>

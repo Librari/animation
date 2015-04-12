@@ -12,22 +12,22 @@ import android.widget.TextView;
 import java.util.List;
 
 import kr.uno.android.animation.R;
-import kr.uno.android.animation.item.PagerSampleItem;
+import kr.uno.android.animation.item.PagerItem;
 import kr.uno.android.animation.util.ImageLoader;
 
 public class SamplePagerAdapter extends PagerAdapter {
 
         private Context mContext;
-        private List<PagerSampleItem> mItemList;
+        private List<PagerItem> mItemList;
         private LayoutInflater mInflater;
 
-        public SamplePagerAdapter(Context context, List<PagerSampleItem> itemList) {
+        public SamplePagerAdapter(Context context, List<PagerItem> itemList) {
             mContext = context;
             mItemList = itemList;
             mInflater = LayoutInflater.from(mContext);
         }
 
-        public PagerSampleItem getItem(int position) {
+        public PagerItem getItem(int position) {
             return getCount() > position ? mItemList.get(position) : null;
         }
 
@@ -44,10 +44,10 @@ public class SamplePagerAdapter extends PagerAdapter {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            PagerSampleItem item = getItem(position);
+            PagerItem item = getItem(position);
 
             // view
-            View view = mInflater.inflate(R.layout.row_pager, null);
+            View view = mInflater.inflate(R.layout.fragment_pager, null);
             ImageView ivPager = (ImageView) view.findViewById(R.id.iv_pager);
             TextView tvText = (TextView) view.findViewById(R.id.tv_text);
             ImageLoader.getInstance(mContext).blur(ivPager, item.image);

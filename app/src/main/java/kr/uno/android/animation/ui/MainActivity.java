@@ -20,7 +20,14 @@ public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.rl_menu) RelativeLayout mRlMenu;
     @InjectView(R.id.iv_bg) ImageView mIvBg;
-    @InjectViews({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager, R.id.rl_menu_ripple, R.id.rl_menu_pull }) List<RelativeLayout> mListRlMenu;
+    @InjectViews({
+            R.id.rl_menu_search,
+            R.id.rl_menu_menu,
+            R.id.rl_menu_pager,
+            R.id.rl_menu_pull,
+            R.id.rl_menu_ripple
+    })
+    List<RelativeLayout> mListRlMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +60,13 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    @OnClick({ R.id.rl_menu_search, R.id.rl_menu_menu, R.id.rl_menu_pager, R.id.rl_menu_ripple, R.id.rl_menu_pull })
+    @OnClick({
+            R.id.rl_menu_search,
+            R.id.rl_menu_menu,
+            R.id.rl_menu_pager,
+            R.id.rl_menu_pull,
+            R.id.rl_menu_ripple
+    })
     public void onClick(View v) {
 
         Intent intent = null;
@@ -62,8 +75,8 @@ public class MainActivity extends ActionBarActivity {
             case R.id.rl_menu_search: intent = new Intent(this, SearchActivity.class); break;       // 검색
             case R.id.rl_menu_menu: intent = new Intent(this, MenuActivity.class); break;           // 메뉴
             case R.id.rl_menu_pager: intent = new Intent(this, PagerActivity.class); break;         // 페이저
-            case R.id.rl_menu_ripple: intent = new Intent(this, RippleActivity.class); break;       // 리플 이펙트
             case R.id.rl_menu_pull: intent = new Intent(this, PullActivity.class); break;           // 당김 효과
+            case R.id.rl_menu_ripple: intent = new Intent(this, RippleActivity.class); break;       // 리플 이펙트
         }
 
         if (intent != null) {

@@ -11,9 +11,9 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     private Context mContext;
 
-    public BaseViewHolder(Context mContext, ViewGroup parent, int resId) {
-        super(LayoutInflater.from(mContext).inflate(resId, parent, false));
-        this.mContext = mContext;
+    public BaseViewHolder(Context context, ViewGroup parent, int resId) {
+        super(LayoutInflater.from(context).inflate(resId, parent, false));
+        this.mContext = context;
         ButterKnife.inject(this, itemView);
     }
 
