@@ -24,16 +24,13 @@
             android:name=".ui.SearchActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".ui.MenuActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".ui.PagerActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.PullActivity"/>
+        <activity
             android:name=".ui.RippleActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.PullActivity"/>
     </application>
 
 </manifest>

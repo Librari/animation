@@ -99,8 +99,6 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
 
         @Override
         public void onBindView(final List<PagerItem> itemList, int position) {
-
-//            final SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(((FragmentActivity) getContext()).getSupportFragmentManager(), itemList);
             final SamplePagerAdapter adapter = new SamplePagerAdapter(getContext(), itemList);
             InfinitePagerAdapter infinitePagerAdapter = new InfinitePagerAdapter(adapter);
             mPager.setAdapter(infinitePagerAdapter, mPagerPosition);

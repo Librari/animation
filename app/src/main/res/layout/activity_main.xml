@@ -6,21 +6,13 @@
     android:clipToPadding="false"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="#000"
     android:gravity="center">
-
-    <ImageView
-        android:id="@+id/iv_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_blur"
-        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/rl_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_bg"
         android:gravity="center"
         android:visibility="gone">
 
@@ -54,7 +46,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/rl_menu_menu"
+            android:id="@+id/rl_menu_pager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -62,7 +54,7 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/tv_menu_label"
+                android:id="@+id/tv_pager_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -73,39 +65,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_menu_label"
-                android:text="MENU"
-                android:textColor="@color/color_menu_font"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_menu_pager"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/rl_menu_menu"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/tv_pager_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="03"
-                android:textColor="@color/color_menu_font"
-                android:textSize="15dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_below="@id/tv_pager_label"
-                android:text="PAGER"
+                android:text="PAGER with MENU"
                 android:textColor="@color/color_menu_font"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -128,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="04"
+                android:text="03"
                 android:textColor="@color/color_menu_font"
                 android:textSize="15dp" />
 
@@ -160,7 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="05"
+                android:text="04"
                 android:textColor="@color/color_menu_font"
                 android:textSize="15dp" />
 

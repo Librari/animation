@@ -47,7 +47,7 @@ public class SamplePagerAdapter extends PagerAdapter {
             PagerItem item = getItem(position);
 
             // view
-            View view = mInflater.inflate(R.layout.fragment_pager, null);
+            View view = mInflater.inflate(R.layout.row_pager_item, null);
             ImageView ivPager = (ImageView) view.findViewById(R.id.iv_pager);
             TextView tvText = (TextView) view.findViewById(R.id.tv_text);
             ImageLoader.getInstance(mContext).blur(ivPager, item.image);
