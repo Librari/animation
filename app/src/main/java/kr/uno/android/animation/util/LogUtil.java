@@ -32,12 +32,12 @@ public class LogUtil {
     public static String getLogTrace(String log) {
         Throwable stack = new Throwable().fillInStackTrace();
         StackTraceElement[] trace = stack.getStackTrace();
-        int index = trace[1].getClassName().lastIndexOf(".") + 1;
-        String className = trace[1].getClassName().substring(index);
+        int index = trace[2].getClassName().lastIndexOf(".") + 1;
+        String className = trace[2].getClassName().substring(index);
         String returnStr = String.format("%s - %s(%d) - %s",
                 className,
-                trace[1].getMethodName(),
-                trace[1].getLineNumber(),
+                trace[2].getMethodName(),
+                trace[2].getLineNumber(),
                 log);
         return returnStr;
     }

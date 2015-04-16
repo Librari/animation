@@ -14,6 +14,7 @@ import butterknife.InjectView;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.item.PagerItem;
 import kr.uno.android.animation.util.ImageLoader;
+import kr.uno.android.animation.util.LogUtil;
 
 public class SamplePagerFragment extends Fragment {
 

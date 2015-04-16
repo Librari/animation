@@ -72,8 +72,8 @@ public class MenuActivity extends ActionBarActivity {
             rlMenu.setAlpha(0f);
             rlMenu.animate()
                     .alpha(1f)
-                    .setStartDelay(DURATION * (i + 1))
-                    .setDuration(DURATION)
+                    .setStartDelay((DURATION / 2) * (i + 1))
+                    .setDuration(DURATION / 2)
                     .start();
         }
     }

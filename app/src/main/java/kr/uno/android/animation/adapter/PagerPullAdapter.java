@@ -26,6 +26,7 @@ import kr.uno.android.animation.item.Row;
 import kr.uno.android.animation.ui.widget.InfiniteViewPager;
 import kr.uno.android.animation.util.DateUtil;
 import kr.uno.android.animation.util.DisplayUtil;
+import kr.uno.android.animation.util.LogUtil;
 
 public class PagerPullAdapter extends BaseRecyclerAdapter {
 
@@ -35,6 +36,7 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
     private List<PagerItem> mPagerItems;
     private List<String> mListItems;
     private boolean isExpanded;
+    private int mPagerPosition;
 
     public PagerPullAdapter(Context context) {
         super(context);;
@@ -96,22 +98,24 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         }
 
         @Override
-        public void onBindView(List<PagerItem> item, int position) {
-            final List<PagerItem> itemList = new ArrayList<>();
-            itemList.add(new PagerItem("1", R.drawable.sample2, "#000000"));
-            itemList.add(new PagerItem("2", R.drawable.sample1, "#ffffff"));
-            itemList.add(new PagerItem("3", R.drawable.sample3, "#ffffff"));
-            itemList.add(new PagerItem("4", R.drawable.sample2, "#000000"));
+        public void onBindView(final List<PagerItem> itemList, int position) {
 
-//            final SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(getSupportFragmentManager(), itemList);
-            final SamplePagerAdapter adapter = new SamplePagerAdapter(getContext(), item);
+//            final SampleFragmentPagerAdapter adapter = new SampleFragmentPagerAdapter(((FragmentActivity) getContext()).getSupportFragmentManager(), itemList);
+            final SamplePagerAdapter adapter = new SamplePagerAdapter(getContext(), itemList);
             InfinitePagerAdapter infinitePagerAdapter = new InfinitePagerAdapter(adapter);
-            mPager.setAdapter(infinitePagerAdapter);
+            mPager.setAdapter(infinitePagerAdapter, mPagerPosition);
 
             toBottomAnim();
 
             // 아이콘 회전
             mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+
+                @Override
+                public void onPageSelected(int position) {
+                    mPagerPosition = position % itemList.size();
+                    LogUtil.i("position: " + mPagerPosition);
+                }
+
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     float normalizedposition = Math.abs(positionOffset);
@@ -160,7 +164,7 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                         }
                     });
                 }
-            }, 0, 1000) ;
+            }, 0, 1000);
         }
 
         private void toBottomAnim() {

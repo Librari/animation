@@ -40,6 +40,11 @@ public class InfiniteViewPager extends ViewPager {
         setCurrentItem(getOffsetAmount());
     }
 
+    public void setAdapter(PagerAdapter adapter, int position) {
+        setAdapter(adapter);
+        setCurrentItem(getOffsetAmount() + position);
+    }
+
     @Override
     public void setCurrentItem(int item) {
         setCurrentItem(item, true);

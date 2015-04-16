@@ -47,8 +47,8 @@ public class MainActivity extends ActionBarActivity {
         mRlMenu.animate().alpha(1f).setDuration(1000).start();
         mIvBg.animate().alpha(1f).setDuration(1000).start();
 
-        long startDelay = 500;
-        long duration = 200;
+        long startDelay = 200;
+        long duration = 100;
         for (int i = 0; i < mListRlMenu.size(); i++) {
             final RelativeLayout rlMenu = mListRlMenu.get(i);
             rlMenu.setAlpha(0f);
