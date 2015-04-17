@@ -60,7 +60,7 @@ public class PullAdapter extends BaseRecyclerAdapter {
         int height = content.getLayoutParams().height;
         height += offset < 0 ? offset : offset - (offset * ratio);
         if (content != null && height > mHeaderHeightDefault) {
-            height = height > mHeaderHeightDefault * 2 ? mHeaderHeightDefault * 2 : height;
+            height = height > mHeaderHeightMax ? mHeaderHeightMax : height;
             content.getLayoutParams().height = height;
             blur.setAlpha(1f - ((float) (height - mHeaderHeightDefault) / (mHeaderHeightMax - height)));
             content.requestLayout();

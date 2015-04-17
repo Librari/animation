@@ -50,8 +50,9 @@ public class SamplePagerAdapter extends PagerAdapter {
             View view = mInflater.inflate(R.layout.row_pager_item, null);
             ImageView ivPager = (ImageView) view.findViewById(R.id.iv_pager);
             TextView tvText = (TextView) view.findViewById(R.id.tv_text);
-            ImageLoader.getInstance(mContext).blur(ivPager, item.image);
-            tvText.setText("position : " + item.name);
+            ImageLoader.getInstance(mContext).load(ivPager, item.image);
+//            ImageLoader.getInstance(mContext).blur(ivPager, item.image);
+            tvText.setText(item.name);
             tvText.setTextColor(Color.parseColor(item.color));
 
             container.addView(view);

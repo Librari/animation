@@ -21,6 +21,7 @@ import butterknife.OnClick;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.adapter.PagerPullAdapter;
 import kr.uno.android.animation.item.PagerItem;
+import kr.uno.android.animation.listener.RecyclerListenerAdapter;
 import kr.uno.android.animation.ui.widget.BaseRecyclerView;
 import kr.uno.android.animation.util.DisplayUtil;
 
@@ -49,6 +50,7 @@ public class PagerActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         initView();
+        initControl();
         initValue();
     }
 
@@ -59,15 +61,31 @@ public class PagerActivity extends ActionBarActivity {
         mRecyclerPagerPull.setAdapter(mAdapterPagerPull);
     }
 
+    private void initControl() {
+        mRecyclerPagerPull.setOnRecyclerListener(new RecyclerListenerAdapter() {
+            @Override
+            public boolean isOffsetEnable() {
+                return mAdapterPagerPull.isExpanded();
+            }
+
+            @Override
+            public void onScrollOffset(int offset, boolean isMove) {
+                super.onScrollOffset(offset, isMove);
+                if (isMove) mAdapterPagerPull.setHeaderHeightOffset(offset);
+                else mAdapterPagerPull.foldingHeader();
+            }
+        });
+    }
+
     private void initValue() {
 
         int height = (int) (DisplayUtil.getHeight(this) * 2.2f);
         mScale = height / DisplayUtil.getPixelFromDp(this, 50);
 
         final List<PagerItem> itemList = new ArrayList<>();
-        itemList.add(new PagerItem("1", R.drawable.sample1, "#ffffff"));
-        itemList.add(new PagerItem("2", R.drawable.sample2, "#000000"));
-        itemList.add(new PagerItem("3", R.drawable.sample3, "#ffffff"));
+        itemList.add(new PagerItem("인기 절정 맥코트!\n전사이즈 당일발송!", "http://www.mr-s.co.kr/web/product/medium/khj10229_24133.jpg", "#ffffff"));
+        itemList.add(new PagerItem("초특가기획!! 밴딩으로 편안하게 착용!", "http://www.mr-s.co.kr/web/product/medium/khj10229_27934.jpg", "#ffffff"));
+        itemList.add(new PagerItem("세련된 차이나 넥라인의\n슬림한 핏감으로 댄디함 UP!", "http://www.mr-s.co.kr/web/product/medium/khj10229_25857.jpg", "#000000"));
 
         mAdapterPagerPull.setPagerItems(itemList);
         mAdapterPagerPull.setListItems(Arrays.asList((getString(R.string.sample_list)).split("\\. ")));

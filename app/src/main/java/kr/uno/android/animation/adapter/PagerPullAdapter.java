@@ -1,8 +1,7 @@
 package kr.uno.android.animation.adapter;
 
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -35,11 +34,17 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
 
     private List<PagerItem> mPagerItems;
     private List<String> mListItems;
-    private boolean isExpanded;
     private int mPagerPosition;
 
+    private View mHeaderView;
+    private int mHeaderHeightDefault;
+    private int mHeaderHeightMax;
+    private boolean isExpanded;
+
     public PagerPullAdapter(Context context) {
-        super(context);;
+        super(context);
+        mHeaderHeightDefault = DisplayUtil.getWidth(getContext());
+        mHeaderHeightMax = (int) (mHeaderHeightDefault * 1.2f);
     }
 
     @Override
@@ -50,6 +55,51 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
             case TYPE_LIST: holder = new ListViewHolder(getContext(), parent, R.layout.row_pull_list); break;
         }
         return holder;
+    }
+
+    public void setHeaderHeightOffset(int offset) {
+        final View content = mHeaderView.findViewById(R.id.pager);
+        final View blur = mHeaderView.findViewById(R.id.rl_cover);
+
+        // height 조절
+        float ratio = (float) content.getLayoutParams().height / mHeaderHeightMax;
+        int height = content.getLayoutParams().height;
+        height += offset < 0 ? offset : offset - (offset * 0.8f);
+        if (content != null && height > mHeaderHeightDefault) {
+            height = height > mHeaderHeightMax ? mHeaderHeightMax : height;
+            content.getLayoutParams().height = height;
+            blur.setAlpha(1f - ((float) (height - mHeaderHeightDefault) / (mHeaderHeightMax - height)));
+            content.requestLayout();
+            isExpanded = true;
+        } else {
+            isExpanded = false;
+        }
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void foldingHeader() {
+        final View content = mHeaderView.findViewById(R.id.pager);
+        final View blur = mHeaderView.findViewById(R.id.rl_cover);
+        if (content != null) {
+            ValueAnimator animator = ValueAnimator.ofInt(content.getLayoutParams().height, mHeaderHeightDefault);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    int height = (int) animation.getAnimatedValue();
+                    content.getLayoutParams().height = height;
+                    blur.setAlpha(1f - ((float) (height - mHeaderHeightDefault) / (mHeaderHeightMax - mHeaderHeightDefault)));
+                    content.requestLayout();
+                }
+            });
+            animator.setStartDelay(0);
+            animator.setDuration(200);
+            animator.start();
+        }
+
+        isExpanded = false;
     }
 
     public void setPagerItems(List<PagerItem> itemList) {
@@ -85,25 +135,41 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         @InjectView(R.id.rl_icon) RelativeLayout mRlIcon;
         @InjectView(R.id.iv_icon_horizontal) ImageView mIvIconHorizontal;
         @InjectView(R.id.iv_icon_vertical) ImageView mIvIconVertical;
-        @InjectView(R.id.rl_icon_guide) RelativeLayout mRlIconGuide;
-        @InjectView(R.id.iv_icon_guide_left) ImageView mIvIconGuideLeft;
-        @InjectView(R.id.iv_icon_guide_right) ImageView mIvIconGuideRight;
 
         private int mDisplayWidth;
+        private int mNextLeft;
 
         public PagerViewHolder(Context context, ViewGroup parent, int resId) {
             super(context, parent, resId);
+            mHeaderView = itemView;
             mDisplayWidth = DisplayUtil.getWidth(getContext()) / 2;
-            mPager.getLayoutParams().height = DisplayUtil.getHeight(getContext());
+
+            mPager.getLayoutParams().height = DisplayUtil.getWidth(getContext());
         }
 
         @Override
         public void onBindView(final List<PagerItem> itemList, int position) {
+
+            if (mPager.getAdapter() == null) {
+                Timer time = new Timer();
+                time.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        ((Activity) getContext()).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mNextLeft++;
+                                if (mNextLeft % 5 == 0) mPager.setCurrentItemAtNear(mPager.getCurrentItem() % itemList.size() + 1);
+                                mTvTimer.setText(DateUtil.getNow("HH\nmm\nss"));
+                            }
+                        });
+                    }
+                }, 0, 1000);
+            }
+
             final SamplePagerAdapter adapter = new SamplePagerAdapter(getContext(), itemList);
             InfinitePagerAdapter infinitePagerAdapter = new InfinitePagerAdapter(adapter);
             mPager.setAdapter(infinitePagerAdapter, mPagerPosition);
-
-            toBottomAnim();
 
             // 아이콘 회전
             mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -123,8 +189,6 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                     mTvTimer.setTextColor(color);
                     mIvIconHorizontal.setBackgroundColor(color);
                     mIvIconVertical.setBackgroundColor(color);
-                    mIvIconGuideLeft.setBackgroundColor(color);
-                    mIvIconGuideRight.setBackgroundColor(color);
                     mRlIcon.setRotation(360 * normalizedposition);
                     mRlCover.requestLayout();
                 }
@@ -147,46 +211,11 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                         if (position < 0.0f) rlContent.setPadding(padding, 0, -padding, 0);
                         if (position > 0.0f) rlContent.setPadding(-padding, 0, padding, 0);
                     }
+
+                    mNextLeft = 0;
                     view.requestLayout();
                 }
             });
-
-            Timer time = new Timer();
-            time.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    ((Activity) getContext()).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mTvTimer.setText(DateUtil.getNow("HH\nmm\nss"));
-                        }
-                    });
-                }
-            }, 0, 1000);
-        }
-
-        private void toBottomAnim() {
-            mRlIconGuide.animate()
-                    .translationY(mRlIconGuide.getLayoutParams().height / 3)
-                    .setDuration(300)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            toUpAnim();
-                        }
-                    }).start();
-        }
-
-        private void toUpAnim() {
-            mRlIconGuide.animate()
-                    .translationY(0f)
-                    .setDuration(300)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            toBottomAnim();
-                        }
-                    }).start();
         }
     }
 

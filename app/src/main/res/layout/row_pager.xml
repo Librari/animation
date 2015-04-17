@@ -26,10 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textColor="#000"
-            android:textSize="90dp"
+            android:textSize="50dp"
             android:gravity="center"
             android:textStyle="bold"
-            android:lineSpacingExtra="-20dp"
+            android:lineSpacingExtra="-10dp"
             android:text="20\n05\n22" />
 
         <RelativeLayout
@@ -38,12 +38,12 @@
             android:layout_height="20dp"
             android:layout_below="@id/tv_timer"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="100dp"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/iv_icon_horizontal"
-                android:layout_width="3dp"
+                android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:background="#000" />
@@ -51,49 +51,9 @@
             <ImageView
                 android:id="@+id/iv_icon_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"
+                android:layout_height="2dp"
                 android:layout_centerInParent="true"
                 android:background="#000" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_icon_guide"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_below="@id/rl_icon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:gravity="center">
-
-            <RelativeLayout
-                android:id="@+id/rl_icon_guide_left"
-                android:layout_width="15dp"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/iv_icon_guide_left"
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:rotation="-45"
-                    android:background="#000" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_icon_guide_right"
-                android:layout_width="15dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="-3dp"
-                android:layout_toRightOf="@id/rl_icon_guide_left">
-
-                <ImageView
-                    android:id="@+id/iv_icon_guide_right"
-                    android:layout_width="3dp"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:rotation="45"
-                    android:background="#000" />
-            </RelativeLayout>
         </RelativeLayout>
 
     </RelativeLayout>
