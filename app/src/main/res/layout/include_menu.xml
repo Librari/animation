@@ -9,38 +9,55 @@
         android:layout_margin="10dp"
         android:layout_height="50dp"
         android:src="@drawable/bg_menu_oval"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:scaleType="fitXY" />
 
     <RelativeLayout
-        android:id="@+id/rl_menu_open"
+        android:id="@+id/rl_menu_toggle"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
+        android:gravity="center"
         android:layout_alignParentRight="true">
 
-        <TextView
-            android:id="@+id/tv_menu_open"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="MENU"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            android:textColor="@color/color_menu_font" />
+        <ImageView
+            android:id="@+id/iv_menu_top"
+            android:layout_width="20dp"
+            android:layout_height="3dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="3dp"
+            android:scaleType="fitXY"
+            android:src="#fff" />
 
-        <TextView
-            android:id="@+id/tv_menu_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/iv_menu_middle_left"
+            android:layout_width="20dp"
+            android:layout_height="3dp"
             android:layout_centerInParent="true"
-            android:text="DONE"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            android:textColor="@color/color_menu_font"
-            android:alpha="0" />
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/iv_menu_top"
+            android:scaleType="fitXY"
+            android:src="#fff" />
+
+        <ImageView
+            android:id="@+id/iv_menu_middle_right"
+            android:layout_width="20dp"
+            android:layout_height="3dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="3dp"
+            android:layout_below="@id/iv_menu_top"
+            android:scaleType="fitXY"
+            android:src="#fff" />
+
+        <ImageView
+            android:id="@+id/iv_menu_bottom"
+            android:layout_width="20dp"
+            android:layout_height="3dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="3dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv_menu_middle_left"
+            android:src="#fff" />
     </RelativeLayout>
 
     <RelativeLayout

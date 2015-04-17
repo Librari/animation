@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +31,9 @@ public class PagerActivity extends ActionBarActivity {
     public static final long MENU_DURATION = 300;
     public static final long MENU_DELAY = 100;
 
-    @InjectView(R.id.rl_menu_open) RelativeLayout mRlMenuOpen;
     @InjectView(R.id.iv_menu_bg) ImageView mIvMenuBg;
     @InjectView(R.id.rl_menu) RelativeLayout mRlMenu;
-    @InjectView(R.id.tv_menu_open) TextView mTvMenuOpen;
-    @InjectView(R.id.tv_menu_done) TextView mTvMenuDone;
+    @InjectViews({ R.id.iv_menu_top, R.id.iv_menu_middle_left, R.id.iv_menu_middle_right, R.id.iv_menu_bottom }) List<ImageView> mListIvMenu;
     @InjectViews({ R.id.rl_menu_home, R.id.rl_menu_ideas, R.id.rl_menu_contact }) List<RelativeLayout> mListRlMenu;
     @InjectView(R.id.recycler_pull) BaseRecyclerView mRecyclerPagerPull;
 
@@ -77,12 +74,12 @@ public class PagerActivity extends ActionBarActivity {
     }
 
     @OnClick({
-            R.id.rl_menu_open, R.id.rl_menu,
+            R.id.rl_menu_toggle, R.id.rl_menu,
             R.id.rl_menu_home, R.id.rl_menu_ideas, R.id.rl_menu_contact
     })
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.rl_menu_open: show(); break;
+            case R.id.rl_menu_toggle: show(); break;
             case R.id.rl_menu: dismiss(); break;
 
             case R.id.rl_menu_home:
@@ -93,8 +90,16 @@ public class PagerActivity extends ActionBarActivity {
 
     public void show() {
         mRlMenu.setVisibility(View.VISIBLE);
-        mTvMenuOpen.animate().alpha(0f).setDuration(DURATION).start();
-        mTvMenuDone.animate().alpha(1f).setDuration(DURATION).start();
+        mListIvMenu.get(0).animate().translationY(mListIvMenu.get(0).getLayoutParams().height * 2).setStartDelay(0).setDuration(DURATION).start();
+        mListIvMenu.get(3).animate().translationY(mListIvMenu.get(0).getLayoutParams().height * -2).setStartDelay(0).setDuration(DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mListIvMenu.get(0).setVisibility(View.INVISIBLE);
+                mListIvMenu.get(3).setVisibility(View.INVISIBLE);
+            }
+        }).start();
+        mListIvMenu.get(1).animate().rotation(45).setStartDelay(DURATION).setDuration(DURATION).start();
+        mListIvMenu.get(2).animate().rotation(-45).setStartDelay(DURATION).setDuration(DURATION).start();
         mIvMenuBg.animate().scaleX(mScale).scaleY(mScale).setDuration(DURATION).start();
 
         for (int i = 0; i < mListRlMenu.size(); i++) {
@@ -119,8 +124,16 @@ public class PagerActivity extends ActionBarActivity {
                         mRlMenu.setVisibility(View.GONE);
                     }
                 }).start();
-        mTvMenuOpen.animate().alpha(1f).setDuration(DURATION).start();
-        mTvMenuDone.animate().alpha(0f).setDuration(DURATION).start();
+        mListIvMenu.get(1).animate().rotation(0).setStartDelay(0).setDuration(DURATION).start();
+        mListIvMenu.get(2).animate().rotation(0).setStartDelay(0).setDuration(DURATION).start();
+        mListIvMenu.get(0).animate().translationY(0).setStartDelay(DURATION).setDuration(DURATION).start();
+        mListIvMenu.get(3).animate().translationY(0).setStartDelay(DURATION).setDuration(DURATION).setListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mListIvMenu.get(0).setVisibility(View.VISIBLE);
+                mListIvMenu.get(3).setVisibility(View.VISIBLE);
+            }
+        }).start();
         mIvMenuBg.animate().scaleX(1f).scaleY(1f).setDuration(DURATION).start();
     }
 

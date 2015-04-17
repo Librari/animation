@@ -57,7 +57,8 @@ public class PullAdapter extends BaseRecyclerAdapter {
 
         // height 조절
         float ratio = (float) content.getLayoutParams().height / mHeaderHeightMax;
-        int height = (int) (content.getLayoutParams().height + (offset - (offset * ratio)));
+        int height = content.getLayoutParams().height;
+        height += offset < 0 ? offset : offset - (offset * ratio);
         if (content != null && height > mHeaderHeightDefault) {
             height = height > mHeaderHeightDefault * 2 ? mHeaderHeightDefault * 2 : height;
             content.getLayoutParams().height = height;
