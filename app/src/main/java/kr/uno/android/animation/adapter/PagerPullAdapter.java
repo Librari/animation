@@ -20,29 +20,34 @@ import java.util.TimerTask;
 import butterknife.InjectView;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.item.BaseViewHolder;
-import kr.uno.android.animation.item.PagerItem;
+import kr.uno.android.animation.item.Product;
 import kr.uno.android.animation.item.Row;
+import kr.uno.android.animation.listener.ProductListener;
 import kr.uno.android.animation.ui.widget.InfiniteViewPager;
 import kr.uno.android.animation.util.DateUtil;
 import kr.uno.android.animation.util.DisplayUtil;
+import kr.uno.android.animation.util.ImageLoader;
 import kr.uno.android.animation.util.LogUtil;
 
 public class PagerPullAdapter extends BaseRecyclerAdapter {
 
-    public static final int TYPE_PAGER = 0;
-    public static final int TYPE_LIST = 10;
+    public static final int TYPE_DIVIDER = 0;
+    public static final int TYPE_PAGER = 10;
+    public static final int TYPE_LIST = 20;
 
-    private List<PagerItem> mPagerItems;
-    private List<String> mListItems;
+    private List<Product> mPagerItems;
+    private List<Product> mListItems;
     private int mPagerPosition;
 
     private View mHeaderView;
     private int mHeaderHeightDefault;
     private int mHeaderHeightMax;
     private boolean isExpanded;
+    private ProductListener mListener;
 
-    public PagerPullAdapter(Context context) {
+    public PagerPullAdapter(Context context, ProductListener listener) {
         super(context);
+        mListener = listener;
         mHeaderHeightDefault = DisplayUtil.getWidth(getContext());
         mHeaderHeightMax = (int) (mHeaderHeightDefault * 1.2f);
     }
@@ -51,8 +56,9 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
     public BaseViewHolder getViewHolder(ViewGroup parent, int type) {
         BaseViewHolder holder = null;
         switch (type) {
-            case TYPE_PAGER: holder = new PagerViewHolder(getContext(), parent, R.layout.row_pager); break;
-            case TYPE_LIST: holder = new ListViewHolder(getContext(), parent, R.layout.row_pull_list); break;
+            case TYPE_DIVIDER: holder = new Divider(getContext(), parent, R.layout.row_product_divider); break;
+            case TYPE_PAGER: holder = new PagerViewHolder(getContext(), parent, R.layout.row_product_pager); break;
+            case TYPE_LIST: holder = new ListViewHolder(getContext(), parent, R.layout.row_product_list); break;
         }
         return holder;
     }
@@ -102,11 +108,11 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         isExpanded = false;
     }
 
-    public void setPagerItems(List<PagerItem> itemList) {
+    public void setPagerItems(List<Product> itemList) {
         mPagerItems = itemList;
     }
 
-    public void setListItems(List<String> itemList) {
+    public void setListItems(List<Product> itemList) {
         mListItems = itemList;
         refresh();
     }
@@ -117,17 +123,21 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         // 헤더
         if (mPagerItems != null && mPagerItems.size() > 0) {
             rows.add(new Row(mPagerItems, TYPE_PAGER));
+            rows.add(new Row(0f, TYPE_DIVIDER));
         }
 
         // 리스트
         if (mListItems != null && mListItems.size() > 0) {
-            for (String item : mListItems) rows.add(new Row(item, TYPE_LIST));
+            for (Product item : mListItems) {
+                rows.add(new Row(item, TYPE_LIST));
+                rows.add(new Row(0f, TYPE_DIVIDER));
+            }
         }
 
         setRows(rows);
     }
 
-    class PagerViewHolder extends BaseViewHolder<List<PagerItem>> {
+    class PagerViewHolder extends BaseViewHolder<List<Product>> {
 
         @InjectView(R.id.pager) InfiniteViewPager mPager;
         @InjectView(R.id.rl_cover) RelativeLayout mRlCover;
@@ -148,7 +158,7 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         }
 
         @Override
-        public void onBindView(final List<PagerItem> itemList, int position) {
+        public void onBindView(final List<Product> itemList, int position) {
 
             if (mPager.getAdapter() == null) {
                 Timer time = new Timer();
@@ -158,8 +168,11 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                         ((Activity) getContext()).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mNextLeft++;
-                                if (mNextLeft % 5 == 0) mPager.setCurrentItemAtNear(mPager.getCurrentItem() % itemList.size() + 1);
+                                if (isExpanded() == false) {
+                                    mNextLeft++;
+                                    if (mNextLeft % 5 == 0)
+                                        mPager.setCurrentItemAtNear(mPager.getCurrentItem() % itemList.size() + 1);
+                                }
                                 mTvTimer.setText(DateUtil.getNow("HH\nmm\nss"));
                             }
                         });
@@ -167,7 +180,7 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                 }, 0, 1000);
             }
 
-            final SamplePagerAdapter adapter = new SamplePagerAdapter(getContext(), itemList);
+            final ProductPagerAdapter adapter = new ProductPagerAdapter(getContext(), itemList, mListener);
             InfinitePagerAdapter infinitePagerAdapter = new InfinitePagerAdapter(adapter);
             mPager.setAdapter(infinitePagerAdapter, mPagerPosition);
 
@@ -184,7 +197,7 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                     float normalizedposition = Math.abs(positionOffset);
                     position = (normalizedposition < 0.5f ? position : position + 1) % adapter.getCount();
-                    PagerItem item = itemList.get(position);
+                    Product item = itemList.get(position);
                     int color = Color.parseColor(item.color);
                     mTvTimer.setTextColor(color);
                     mIvIconHorizontal.setBackgroundColor(color);
@@ -219,17 +232,44 @@ public class PagerPullAdapter extends BaseRecyclerAdapter {
         }
     }
 
-    class ListViewHolder extends BaseViewHolder<String> {
+    class ListViewHolder extends BaseViewHolder<Product> {
 
-        @InjectView(R.id.tv_pull) TextView mTvPull;
+        @InjectView(R.id.iv_product) ImageView mIvProduct;
+        @InjectView(R.id.tv_name) TextView mTvName;
+        @InjectView(R.id.tv_description) TextView mTvDescription;
 
         public ListViewHolder(Context context, ViewGroup parent, int resId) {
+            super(context, parent, resId);
+            mIvProduct.getLayoutParams().height = (int) (DisplayUtil.getWidth(getContext()) * 1.365f);
+        }
+
+        @Override
+        public void onBindView(final Product item, int position) {
+
+            // control
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.onClickProduct(item);
+                }
+            });
+
+            ImageLoader.getInstance(getContext()).loadGif(mIvProduct, item.image);
+            mTvName.setText(item.name);
+            mTvDescription.setText(item.description);
+        }
+    }
+
+    class Divider extends BaseViewHolder<Float> {
+
+        public Divider(Context context, ViewGroup parent, int resId) {
             super(context, parent, resId);
         }
 
         @Override
-        public void onBindView(String item, int position) {
-            mTvPull.setText(item);
+        public void onBindView(Float item, int position) {
+            if (item == 0.0f) return;
+            itemView.getLayoutParams().height = DisplayUtil.getPixelFromDp(getContext(), item);
         }
     }
 }

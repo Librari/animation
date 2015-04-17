@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.BitmapTypeRequest;
+import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.DecodeFormat;
@@ -250,6 +251,62 @@ public class ImageLoader {
         } else {
             request.into(imageView);
         }
+    }
+
+    public void loadGif(final ImageView imageView, String url) {
+
+        if (isGif(url) == false) {
+            load(imageView, url);
+            return;
+        }
+
+        final DrawableTypeRequest<String> request = Glide.with(mContext).load(url);
+
+        // transformation
+        if (getTransformation() != null) {
+            request.transform(getTransformation());
+        } else {
+            request.dontTransform();
+        }
+
+        // animate
+        if (getAnimator() != null) {
+            request.animate(getAnimator());
+        } else {
+            request.dontAnimate();
+        }
+
+        // waiting
+        if (getWatingImageResId() != 0) {
+            request.placeholder(getWatingImageResId());
+        }
+
+        // error
+        if (getErrorImageResId() != 0) {
+            request.error(getErrorImageResId());
+        }
+
+        if (mContext instanceof Activity) {
+            ((Activity) mContext).runOnUiThread(new Runnable() {
+                public void run() { request.into(imageView); }
+            });
+        } else {
+            request.into(imageView);
+        }
+    }
+
+    public boolean isGif(String url) {
+        if (url == null || url.trim().length() == 0) {
+            return false;
+        }
+
+        String[] split = url.split("\\.");
+        int max = split.length;
+        if (max <= 0) {
+            return false;
+        }
+        String format = split[max - 1];
+        return format.toLowerCase().contains("gif");
     }
 
     public class RoundedCornerTransformation extends BitmapTransformation {

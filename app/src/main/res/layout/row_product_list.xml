@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="#fff">
+
+    <ImageView
+        android:id="@+id/iv_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop" />
+
+    <kr.uno.android.animation.ui.widget.FontTextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-25dp"
+        android:minHeight="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_product"
+        android:gravity="center"
+        android:text="sample"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <kr.uno.android.animation.ui.widget.FontTextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_name"
+        android:text="sample"
+        android:padding="15dp"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+</RelativeLayout>

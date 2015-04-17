@@ -2,6 +2,8 @@ package kr.uno.android.animation.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -20,7 +21,8 @@ import butterknife.InjectViews;
 import butterknife.OnClick;
 import kr.uno.android.animation.R;
 import kr.uno.android.animation.adapter.PagerPullAdapter;
-import kr.uno.android.animation.item.PagerItem;
+import kr.uno.android.animation.item.Product;
+import kr.uno.android.animation.listener.ProductListener;
 import kr.uno.android.animation.listener.RecyclerListenerAdapter;
 import kr.uno.android.animation.ui.widget.BaseRecyclerView;
 import kr.uno.android.animation.util.DisplayUtil;
@@ -55,7 +57,12 @@ public class PagerActivity extends ActionBarActivity {
     }
 
     private void initView() {
-        mAdapterPagerPull = new PagerPullAdapter(this);
+        mAdapterPagerPull = new PagerPullAdapter(this, new ProductListener() {
+            @Override
+            public void onClickProduct(Product item) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(item.url)));
+            }
+        });
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerPagerPull.setLayoutManager(mLayoutManager);
         mRecyclerPagerPull.setAdapter(mAdapterPagerPull);
@@ -82,13 +89,18 @@ public class PagerActivity extends ActionBarActivity {
         int height = (int) (DisplayUtil.getHeight(this) * 2.2f);
         mScale = height / DisplayUtil.getPixelFromDp(this, 50);
 
-        final List<PagerItem> itemList = new ArrayList<>();
-        itemList.add(new PagerItem("인기 절정 맥코트!\n전사이즈 당일발송!", "http://www.mr-s.co.kr/web/product/medium/khj10229_24133.jpg", "#ffffff"));
-        itemList.add(new PagerItem("초특가기획!! 밴딩으로 편안하게 착용!", "http://www.mr-s.co.kr/web/product/medium/khj10229_27934.jpg", "#ffffff"));
-        itemList.add(new PagerItem("세련된 차이나 넥라인의\n슬림한 핏감으로 댄디함 UP!", "http://www.mr-s.co.kr/web/product/medium/khj10229_25857.jpg", "#000000"));
+        final List<Product> pagerItems = new ArrayList<>();
+        pagerItems.add(new Product("헤던 카라배색 맥 코트", "인기 절정 맥코트!\n전사이즈 당일발송!", "http://www.mr-s.co.kr/web/product/medium/khj10229_24133.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=24133&cate_no=1&display_group=2", "#ffffff"));
+        pagerItems.add(new Product("네이틀 밴딩 슬랙스", "초특가기획!! 밴딩으로 편안하게 착용!", "http://www.mr-s.co.kr/web/product/medium/khj10229_27934.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=27934&cate_no=1&display_group=3", "#ffffff"));
+        pagerItems.add(new Product("루빈디 차이나 셔츠", "세련된 차이나 넥라인의\n슬림한 핏감으로 댄디함 UP!", "http://www.mr-s.co.kr/web/product/medium/khj10229_25857.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=25857&cate_no=1&display_group=2", "#000000"));
+        mAdapterPagerPull.setPagerItems(pagerItems);
 
-        mAdapterPagerPull.setPagerItems(itemList);
-        mAdapterPagerPull.setListItems(Arrays.asList((getString(R.string.sample_list)).split("\\. ")));
+        final List<Product> listItems = new ArrayList<>();
+        listItems.add(new Product("바딘 디스트로이드 스키니", "허벅지는 일자로 슬림한 핏!", "http://www.mr-s.co.kr/web/product/tiny/khj10229_25352.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=25352&cate_no=1&display_group=2","#ffffff"));
+        listItems.add(new Product("체논 데님 스키니", "심플 데님 스키니로 다양한 패션 연출!", "http://www.mr-s.co.kr/web/product/tiny/khj10229_27639.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=27639&cate_no=1&display_group=2","#ffffff"));
+        listItems.add(new Product("테일러 밴딩 슬랙스", "셔츠빠짐방지 디테일과 허리밴딩!", "http://www.mr-s.co.kr/web/product/tiny/khj10229_27503.gif", "http://m.mr-s.co.kr/product/detail.html?product_no=27503&cate_no=1&display_group=2","#ffffff"));
+        listItems.add(new Product("티스컬 헨리넥 셔츠", "세련된 헨리넥 디자인으로 부담없이!", "http://www.mr-s.co.kr/web/product/tiny/khj10229_27972.jpg", "http://m.mr-s.co.kr/product/detail.html?product_no=27972&cate_no=1&display_group=3", "#ffffff"));
+        mAdapterPagerPull.setListItems(listItems);
     }
 
     @OnClick({
